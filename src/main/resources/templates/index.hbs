@@ -1,0 +1,90 @@
+{{> header}}
+<a class="ui black icon button" href="/orgas/new"><i class="ui plus icon"></i> add organization</a>
+<table class="ui selectable inverted table" id="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Domain</th>
+      <th>Aliases</th>
+      <th class="right aligned"></th>
+    </tr>
+  </thead>
+  <tbody id="recherche">
+      {{#orga}}
+    <tr data-id="{{id}}" class="detail">
+      <td>{{id}}</td>
+      <td>{{name}}</td>
+      <td>{{domaine}}</td>
+      <td>{{alias}}</td>
+      <td class="right aligned">
+      	<a class="ui inverted black icon button" href="/orgas/displayOrga/{{id}}"><i class="eye outline icon"></i></a>
+      	<a class="ui inverted black icon button" href="/orgas/edit/{{id}}"><i class="edit outline icon"></i></a>
+      	<a data-delete="{{id}}" class="ui red inverted icon button delete"><i class="trash alternate icon"></i></a>
+      </td>
+    </tr>
+    {{/orga}}
+  </tbody>
+  <tfoot>
+  	<tr>
+  		<th></th>
+  		<th></th>
+  		<th></th>
+  		<th></th>
+  		<th class="right aligned">
+  			<div class="ui icon input search">
+  				<input type="text" class="ui clearable" placeholder="Search..." id="research" onkeyup="fonc(this.value);">
+  				<i class="inverted circular search link icon searching"></i>
+			</div>
+  		</th>
+  	</tr>
+  </tfoot>
+</table>
+<div id="confDelete"></div>
+{{> footer}}
+<script>
+$(document).ready(function(){
+  $(".delete").click(function(e){
+  	let id =$(this).attr("data-delete");
+    e.stopPropagation();
+    $.ajax({
+    	url: "/orgas/delete/conf/"+id, 
+    	success: function(result){
+        $("#confDelete").html(result);
+      }
+    });
+  });
+  $(".detail").click(function(){
+  	let id =$(this).attr("data-id");
+    $.ajax({
+    	url: "/orgas/detail/"+id, 
+    	success: function(result){
+        $("#confDelete").html(result);
+      }
+    });
+  });
+  $(".searching").click(function(){
+    let text =$('#research').val();
+    fonc(text);
+  });
+});
+function fonc(text){
+    if (text.length > 0) {
+      console.log("recherche ="+text);
+      $.ajax({
+        url: "/orgas/search/"+text+"/1", 
+        success: function(result){
+          $("#recherche").html(result);
+        }
+      });
+    }
+    else{
+      $.ajax({
+        url: "/orgas/search/ /0", 
+        success: function(result){
+          $("#recherche").html(result);
+        }
+      });
+    }
+  }
+</script>

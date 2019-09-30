@@ -1,0 +1,33 @@
+{{#organization}}
+
+	<div class="ui modal basic test">
+		<div class="ui icon header">
+      <i class="trash alternate icon"></i>
+		Confirm the deletion
+		</div>
+		<div class="content">
+        <p>Confirm the deletion of "{{domaine}}"</p>
+		</div>
+		<div class="actions">
+		<div class="ui basic cancel inverted button">
+			<i class="arrow left icon"></i>
+			No
+		</div>
+		<a href="/orgas/delete/{{id}}"><div class="ui red ok inverted button">
+			<i class="remove icon"></i>
+			Yes
+		</div></a>
+		</div>
+	</div>
+
+{{/organization}}
+
+<script>
+	$('.basic.test.modal')
+  		.modal('setting', 'closable', false)
+  		.modal('show')
+		.modal({
+			onHidden    : function(){
+				$(event.target).remove();
+		}});
+</script>

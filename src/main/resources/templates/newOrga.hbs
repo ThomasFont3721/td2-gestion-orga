@@ -1,0 +1,69 @@
+{{> header}}
+<h2 class="ui inverted center aligned icon header">
+  <i class="industry icon"></i>
+  <div class=" inverted content">
+    Add Organization
+    <div class=" inverted sub header">New object creation</div>
+  </div>
+</h2>
+<form class="ui inverted form error" method="POST" action="/orgas/addNew">
+    <div class="field">
+        <label>Name</label>
+        <input name="name" type="text" placeholder="Name...">
+    </div>
+    <div class="field">
+        <label>Domain</label>
+        <input name="domain" type="text" placeholder="Domain...">
+    </div>
+    <div class="field">
+        <label>Aliases</label>
+        <input name="alias" type="text" placeholder="Aliases...">
+    </div>
+    <div class="ui submit positive button"><i class="check circle outline icon"></i>Validate</div>
+    
+    <a href="/orgas/index"><div class="ui negative error button"><i class="times circle outline icon"></i>Cancel</div></a>
+</form>
+{{> footer}}
+<script>
+    $('form')
+  .form({
+    on: 'blur',
+    fields: {
+      name: {
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Name'
+          }
+        ]
+      },
+      domain: {
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Domain'
+          }
+        ]
+      },
+      alias: {
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'Aliases'
+          }
+        ]
+      }
+    },
+    onInvalid: function(msg){
+        $('body')
+            .toast({
+                class: 'error',
+                title: 'Error',
+                message: 'Please enter a '+msg,
+                showProgress: 'top'
+            })
+            ;
+    }
+  })
+;
+</script>

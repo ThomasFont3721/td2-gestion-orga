@@ -1,0 +1,58 @@
+{{> header}}
+<a class="ui black icon button" href="/orgas/new"><i class="ui plus icon"></i> add organization</a>
+<br>
+{{#orga}}
+<a class="ui inverted icon button" href="/orgas/index"><i class="times icon"></i>Close</a>
+<a data-delete="{{id}}" class="ui inverted red icon button delete"><i class="ui times icon"></i>Delete {{domaine}}</a>
+<a class="ui inverted black icon button" href="/orgas/edit/{{id}}"><i class="edit outline icon"></i>Edit {{domaine}}</a>
+<table class="ui selectable inverted table">
+  <tbody>
+    <tr>
+    <th class="ui center aligned">Id</th>
+      <td>{{id}}</td>
+    </tr>
+    <tr>
+    <th class="ui center aligned">Name</th>
+      <td>{{name}}</td>
+    </tr>
+    <tr>
+    <th class="ui center aligned">Domain</th>
+      <td>{{domaine}}</td>
+    </tr>
+    <tr>
+    <th class="ui center aligned">Aliases</th>
+      <td>{{alias}}</td>
+    </tr>
+    <th class="ui center aligned">Groupes</th>
+      <td>
+      {{#groupes}}
+      {{name}}
+      {{/groupes}}
+      </td>
+    </tr>
+    <th class="ui center aligned">Users</th>
+      <td>
+      {{#users}}
+      {{email}}
+      {{/users}}
+      </td>
+    </tr>
+  </tbody>
+</table>
+{{/orga}}
+<div id="confDelete">
+</div>
+{{> footer}}
+<script>
+$(document).ready(function(){
+  $(".delete").click(function(){
+  	let id =$(this).attr("data-delete");
+    $.ajax({
+    	url: "/orgas/delete/conf/"+id, 
+    	success: function(result){
+      $("#confDelete").html(result);
+    }});
+  });
+  
+});
+</script>

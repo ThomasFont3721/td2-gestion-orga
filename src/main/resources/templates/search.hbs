@@ -1,0 +1,35 @@
+{{#organi}}
+    <tr data-id="{{id}}" class="detail">
+      <td>{{id}}</td>
+      <td>{{name}}</td>
+      <td>{{domaine}}</td>
+      <td>{{alias}}</td>
+      <td class="right aligned">
+      	<a class="ui inverted black icon button" href="/orgas/displayOrga/{{id}}"><i class="eye outline icon"></i></a>
+      	<a class="ui inverted black icon button" href="/orgas/edit/{{id}}"><i class="edit outline icon"></i></a>
+      	<a data-delete="{{id}}" class="ui red inverted icon button delete"><i class="trash alternate icon"></i></a>
+      </td>
+    </tr>
+{{/organi}}
+<script>
+    $("#detailorga").remove();
+    $(".delete").click(function(e){
+  	let id =$(this).attr("data-delete");
+    e.stopPropagation();
+    $.ajax({
+    	url: "/orgas/delete/conf/"+id, 
+    	success: function(result){
+        $("#confDelete").html(result);
+      }
+    });
+  });
+  $(".detail").click(function(){
+  	let id =$(this).attr("data-id");
+    $.ajax({
+    	url: "/orgas/detail/"+id, 
+    	success: function(result){
+        $("#confDelete").html(result);
+      }
+    });
+  });
+</script>
