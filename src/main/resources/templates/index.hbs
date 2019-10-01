@@ -33,41 +33,47 @@
   		<th></th>
   		<th class="right aligned">
   			<div class="ui icon input search">
-  				<input type="text" class="ui clearable" placeholder="Search..." id="research" onkeyup="fonc(this.value);">
+  				<input type="text" placeholder="Search..." id="research" onkeyup="fonc(this.value);">
   				<i class="inverted circular search link icon searching"></i>
 			</div>
   		</th>
   	</tr>
   </tfoot>
 </table>
-<div id="confDelete"></div>
+<div id="ajout"></div>
 {{> footer}}
 <script>
 $(document).ready(function(){
+  //focus sur input research
+  $("#research").focus();
+  //affiche popup pour confirmer la supression
   $(".delete").click(function(e){
   	let id =$(this).attr("data-delete");
     e.stopPropagation();
     $.ajax({
     	url: "/orgas/delete/conf/"+id, 
     	success: function(result){
-        $("#confDelete").html(result);
+        $("#ajout").html(result);
       }
     });
   });
+  //affiche un tableau dans la div ajout qui présente les groupes et les users
   $(".detail").click(function(){
   	let id =$(this).attr("data-id");
     $.ajax({
     	url: "/orgas/detail/"+id, 
     	success: function(result){
-        $("#confDelete").html(result);
+        $("#ajout").html(result);
       }
     });
   });
+  //affiche la recherche au moment du click de l'icon et appele la fonction
   $(".searching").click(function(){
     let text =$('#research').val();
     fonc(text);
   });
 });
+//affiche la recherche si il y a une lettre snon liste complete
 function fonc(text){
     if (text.length > 0) {
       console.log("recherche ="+text);

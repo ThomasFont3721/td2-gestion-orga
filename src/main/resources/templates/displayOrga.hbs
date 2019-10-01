@@ -40,7 +40,7 @@
   </tbody>
 </table>
 {{/orga}}
-<div id="confDelete">
+<div id="ajout">
 </div>
 {{> footer}}
 <script>
@@ -50,7 +50,7 @@ $(document).ready(function(){
     $.ajax({
     	url: "/orgas/delete/conf/"+id, 
     	success: function(result){
-      $("#confDelete").html(result);
+      $("#ajout").html(result);
     }});
   });
   

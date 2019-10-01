@@ -19,7 +19,7 @@
     $.ajax({
     	url: "/orgas/delete/conf/"+id, 
     	success: function(result){
-        $("#confDelete").html(result);
+        $("#ajout").html(result);
       }
     });
   });
@@ -28,7 +28,7 @@
     $.ajax({
     	url: "/orgas/detail/"+id, 
     	success: function(result){
-        $("#confDelete").html(result);
+        $("#ajout").html(result);
       }
     });
   });
